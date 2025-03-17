@@ -11,6 +11,7 @@ import com.example.Car_Rental.repository.CarRepository;
 import com.example.Car_Rental.repository.ClientRepository;
 import com.example.Car_Rental.repository.ReservationRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -78,5 +79,11 @@ public class CarService {
         if(existingCar.isPresent()){
             carRepository.delete(existingCar.get());
         }else{throw new RuntimeException("Car not found with ID: " + carId);}
+    }
+    public List<CarDto> findCarsByModel(String model) {
+        List<Car> cars = carRepository.findByModel(model);
+        return cars.stream()
+                .map(carMapper::mapToDto)
+                .collect(Collectors.toList());
     }
 }

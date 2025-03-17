@@ -4,6 +4,7 @@ import com.example.Car_Rental.dto.CarDto;
 import com.example.Car_Rental.service.CarService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,5 +34,10 @@ public class CarController {
     public String delete(@PathVariable(name = "carId") Long carId){
         carService.delete(carId);
         return "Car successfully deleted!";
+    }
+    @GetMapping("/byModel")
+    public ResponseEntity<List<CarDto>> findCarsByModel(@RequestParam String model) {
+        List<CarDto> cars = carService.findCarsByModel(model);
+        return ResponseEntity.ok(cars);
     }
 }
