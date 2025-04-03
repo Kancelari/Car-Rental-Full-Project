@@ -40,4 +40,8 @@ public class CarController {
         List<CarDto> cars = carService.findCarsByModel(model);
         return ResponseEntity.ok(cars);
     }
+    @GetMapping("/carsWithoutReservation")
+    public List<CarDto> getCarsWithoutReservation() {
+        return carService.findCarsWithoutReservation();
+    }
 }

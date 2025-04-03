@@ -21,11 +21,13 @@ public class CarDto {
     @Size(min = 2, max = 50, message = "Model must be between 2 and 50 characters")
     private String type;
     private int year;
+    private String imageUrl;
     private String fuel;
     private List<ReservationDto> reservationDtoList;
 
     private Long clientId;
 
     private String clientName;
+
     private String clientSurname;
 }

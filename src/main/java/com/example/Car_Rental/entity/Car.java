@@ -32,6 +32,8 @@ public class Car {
     private String type;
     private int year;
     private String fuel;
+    @Column(name = "image_url")
+    private String imageUrl;
 
     @OneToMany(mappedBy = "car",cascade = CascadeType.ALL,orphanRemoval = true)
     private Set<Reservation> reservations = new HashSet<>();

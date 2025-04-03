@@ -34,6 +34,7 @@ public class CarService {
         if(foundClient.isPresent()){
             car.setClient(foundClient.get());
         }
+        car.setImageUrl(carDto.getImageUrl());
         Car savedCar = carRepository.save(car);
         Set<Reservation> reservations = new HashSet<>();
         for (ReservationDto reservationDto : carDto.getReservationDtoList()){
@@ -69,6 +70,7 @@ public class CarService {
            carToUpdate.setYear(carDto.getYear());
            carToUpdate.setFuel(carDto.getFuel());
            carToUpdate.setClient(client);
+           carToUpdate.setImageUrl(carDto.getImageUrl());
            Car savedCar = carRepository.save(carToUpdate);
            return carMapper.mapToDto(savedCar);
        }else {throw new RuntimeException("Car not found with ID: " + carId);}
@@ -83,6 +85,15 @@ public class CarService {
     public List<CarDto> findCarsByModel(String model) {
         List<Car> cars = carRepository.findByModel(model);
         return cars.stream()
+                .map(carMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+    public List<CarDto> findCarsWithoutReservation() {
+        List<Car> carsWithoutReservation = carRepository.findAll().stream()
+                .filter(car -> car.getReservations().isEmpty())  // Filters out cars with reservations
+                .collect(Collectors.toList());
+
+        return carsWithoutReservation.stream()
                 .map(carMapper::mapToDto)
                 .collect(Collectors.toList());
     }

@@ -23,6 +23,7 @@ public class CarMapper {
         car.setType(carDto.getType());
         car.setYear(carDto.getYear());
         car.setFuel(carDto.getFuel());
+        car.setImageUrl(carDto.getImageUrl());
         return car;
     }
     public CarDto mapToDto(Car car){
@@ -32,6 +33,7 @@ public class CarMapper {
         carDto.setType(car.getType());
         carDto.setYear(car.getYear());
         carDto.setFuel(car.getFuel());
+        carDto.setImageUrl(car.getImageUrl());
         carDto.setReservationDtoList(car.getReservations().stream().map(reservation -> reservationMapper.mapToDto(reservation)).collect(Collectors.toList()));
 //        carDto.setClientId(car.getClient().getId());
 //        carDto.setClientName(car.getClient().getFirstname());
